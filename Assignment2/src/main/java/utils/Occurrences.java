@@ -7,13 +7,13 @@ import java.io.DataOutput;
 import java.io.IOException;
 
 public class Occurrences implements WritableComparable<Occurrences> {
-    private boolean corpus;
+    private boolean corpus_part;
     private long count;
 
     public Occurrences(){}
 
     public Occurrences(boolean corpus, long count){
-        this.corpus = corpus;
+        this.corpus_part = corpus;
         this.count = count;
     }
 
@@ -22,28 +22,28 @@ public class Occurrences implements WritableComparable<Occurrences> {
     }
 
     @Override public void write(DataOutput dataOutput) throws IOException {
-        dataOutput.writeBoolean(corpus);
+        dataOutput.writeBoolean(corpus_part);
         dataOutput.writeLong(count);
     }
 
     @Override public void readFields(DataInput dataInput) throws IOException {
-        corpus = dataInput.readBoolean();
+        corpus_part = dataInput.readBoolean();
         count = dataInput.readLong();
     }
 
-    public boolean isCorpus() {
-        return corpus;
+    public boolean getCorpus_part() {
+        return corpus_part;
     }
 
     public int corpusNumericValue(){
-        return corpus ? 0 : 1;
+        return corpus_part ? 0 : 1;
     }
     public long getCount() {
         return count;
     }
 
-    public void setCorpus(boolean corpus) {
-        this.corpus = corpus;
+    public void setCorpus_part(boolean corpus_part) {
+        this.corpus_part = corpus_part;
     }
 
     public void setCount(long count) {
@@ -51,7 +51,7 @@ public class Occurrences implements WritableComparable<Occurrences> {
     }
 
     public String toString(){
-        return corpus + " " + count;
+        return corpus_part + " " + count;
     }
 
 }
