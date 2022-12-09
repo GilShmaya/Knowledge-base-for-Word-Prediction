@@ -47,9 +47,9 @@ public class Splitter {
 
     /***
      * * An abstract class for the Splitter's Reduce classes.
-     * @param <r1> The occurrence number of the trigram (the key) in the first group of the corpus.
-     * @param <r2> The occurrence number of the trigram (the key) in the second group of the corpus.
-     * @param <text> The reducer key - the trigram.
+     * @field <r1> The occurrence number of the trigram (the key) in the first group of the corpus.
+     * @field <r2> The occurrence number of the trigram (the key) in the second group of the corpus.
+     * @field <text> The reducer key - the trigram.
      * @param <Occurrences> Indicates the occurrences of the Trigram & its corpus group.
      * @param <KEYOUT>
      * @param <VALUEOUT>
@@ -84,8 +84,6 @@ public class Splitter {
     }
 
     /*** Combine the trigram's Occurrences the mapper created in each server.
-     * @param <KEYOUT> The reducer key - the trigram.
-     * @param <VALUEOUT> The occurrence of the trigram after combining.
      */
     public static class CombinerClass extends ReducerSplitter<Text, Occurrences, Text, Occurrences> {
 
@@ -99,10 +97,8 @@ public class Splitter {
     }
 
     /*** Count the occurrences from the trigram's occurrence data arrived from all servers, calculating N and
-     * * reduce into one pair of <KEYOUT, VALUEOUT>
+     * * reduce into one pair of <trigram, r1 r2>
      * @enam <N> The reducer key - the trigram.
-     * @param <KEYOUT> The reducer key - the trigram.
-     * @param <VALUEOUT> Text which indicates the number occurrences in each corpus group.
      */
     public static class ReducerClass extends ReducerSplitter<Text, Occurrences, Text, Text> {
         enum Counter {
