@@ -27,6 +27,7 @@ public class Splitter {
         private static final Pattern ENGLISH = Pattern.compile("(?<trigram>[A-Z]+ [A-Z]+ [A-Z]+)\\t\\d{4}\\t" +
                 "(?<occurrences>\\d+).*");
 
+        @Override
         public void map(LongWritable lineId, Text line, Context context) throws IOException, InterruptedException {
             Matcher matcher = ENGLISH.matcher(line.toString());
             if (matcher.matches()) {
@@ -60,6 +61,7 @@ public class Splitter {
         protected long r2;
         protected String text;
 
+        @Override
         public void setup(Context context) {
             r1 = 0;
             r2 = 0;
@@ -76,9 +78,9 @@ public class Splitter {
                 text = key.toString();
             }
             if (value.getCorpus_group()) {
-                r1 = r1 + value.getCount();
+                r1 += value.getCount();
             } else {
-                r2 = r2 + value.getCount();
+                r2 += value.getCount();
             }
         }
     }
@@ -86,7 +88,6 @@ public class Splitter {
     /*** Combine the trigram's Occurrences the mapper created in each server.
      */
     public static class CombinerClass extends ReducerSplitter<Text, Occurrences, Text, Occurrences> {
-
         public void reduce(Text key, Iterable<Occurrences> values, Context context) throws IOException, InterruptedException {
             for (Occurrences value : values) {  // init
                 reduceLogic(key, value);
