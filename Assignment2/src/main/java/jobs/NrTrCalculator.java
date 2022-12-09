@@ -24,7 +24,7 @@ public class NrTrCalculator {
         @Override
         public void map(LongWritable lineId, Text line, Context context) throws IOException, InterruptedException {
             String[] arr = line.toString().split("\\s+"); // "\\s+" is used to match multiple whitespace characters
-            if (arr.length == 5) { // <w1, w2, w3, r1, r2>
+            if (arr.length == 5) { // <w0, w1, w2, r1, r2>
                 long r1 = Long.parseLong(arr[3]);
                 long r2 =  Long.parseLong(arr[4]);
                 context.write(new LongWritable(r1), new Aggregator(1, 1, r2));
