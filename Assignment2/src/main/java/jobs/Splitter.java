@@ -11,18 +11,17 @@ import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/*
-    The Splitter job is responsible for the following:
-    1. Divide the corpus.
-    2. Count the occurrences and calculating N (N is number of word sequences of size 3 in the corpus).
-    3. Calculate R of the two parts of the corpus for each trigram.
-*/
+/***
+ * * The Splitter job is responsible for the following:
+ *     1. Divide the corpus.
+ *     2. Count the occurrences and calculating N (N is number of word sequences of size 3 in the corpus).
+ *     3. Calculate R, the number the trigram occur in the two parts of the corpus for each trigram.
+ */
 public class Splitter {
 
-
-    /*
-       Map every line into <Trigram, Occurrences>, the Occurrences include a division of the corpus to two parts and
-       the occurrences of every trigram.
+    /***
+     * * Map every line into <trigram, Occurrences>, the Occurrences include a division of the corpus into two parts and
+     *        the occurrences of every trigram.
      */
     public static class MapperClass extends Mapper<LongWritable, Text, Text, Occurrences> {
         private static final Pattern ENGLISH = Pattern.compile("(?<trigram>[A-Z]+ [A-Z]+ [A-Z]+)\\t\\d{4}\\t" +
@@ -37,14 +36,29 @@ public class Splitter {
         }
     }
 
-
-    /*
-        Combine the Occurrences the mapper created.
+    /***
+     * * Defines the partition policy of sending the key-value the Mapper created to the reducers.
      */
-    public static class CombinerClass extends Reducer<Text, Occurrences, Text, Occurrences> {
-        private long r1;
-        private long r2;
-        private String text;
+    public static class PartitionerClass extends Partitioner<Text, Occurrences> {
+        public int getPartition(Text key, Occurrences value, int partitionsNumber) {
+            return key.hashCode() % partitionsNumber;
+        }
+    }
+
+    /***
+     * * An abstract class for the Splitter's Reduce classes.
+     * @param <r1> The occurrence number of the trigram (the key) in the first group of the corpus.
+     * @param <r2> The occurrence number of the trigram (the key) in the second group of the corpus.
+     * @param <text> The reducer key - the trigram.
+     * @param <Occurrences> Indicates the occurrences of the Trigram & its corpus group.
+     * @param <KEYOUT>
+     * @param <VALUEOUT>
+     */
+    public abstract static class ReducerSplitter<Text, Occurrences, KEYOUT, VALUEOUT> extends Reducer<Text, Occurrences, KEYOUT,
+            VALUEOUT> {
+        protected long r1;
+        protected long r2;
+        protected String text;
 
         public void setup(Context context) {
             r1 = 0;
@@ -52,61 +66,55 @@ public class Splitter {
             text = "";
         }
 
+        public abstract void reduce(org.apache.hadoop.io.Text key, Iterable<utils.Occurrences> values,
+                                    Context context)  throws IOException, InterruptedException;
+
+        protected void reduceLogic(org.apache.hadoop.io.Text key, utils.Occurrences value){
+            if (!key.toString().equals(text)) { // init
+                r1 = 0;
+                r2 = 0;
+                text = key.toString();
+            }
+            if (value.getCorpus_group()) {
+                r1 = r1 + value.getCount();
+            } else {
+                r2 = r2 + value.getCount();
+            }
+        }
+    }
+
+    /*** Combine the trigram's Occurrences the mapper created in each server.
+     * @param <KEYOUT> The reducer key - the trigram.
+     * @param <VALUEOUT> The occurrence of the trigram after combining.
+     */
+    public static class CombinerClass extends ReducerSplitter<Text, Occurrences, Text, Occurrences> {
+
         public void reduce(Text key, Iterable<Occurrences> values, Context context) throws IOException, InterruptedException {
             for (Occurrences value : values) {  // init
-                if (!key.toString().equals(text)) {
-                    r1 = 0;
-                    r2 = 0;
-                    text = key.toString();
-                }
-                if (value.getCorpus_part()) {
-                    r1 = r1 + value.getCount();
-                } else {
-                    r2 = r2 + value.getCount();
-                }
+                reduceLogic(key, value);
             }
             context.write(new Text(text), new Occurrences(true, r1));
             context.write(new Text(text), new Occurrences(false, r2));
         }
     }
 
-    public static class ReducerClass extends Reducer<Text, Occurrences, Text, Text> {
-        private long r1;
-        private long r2;
-        private String text;
-
+    /*** Count the occurrences from the trigram's occurrence data arrived from all servers, calculating N and
+     * * reduce into one pair of <KEYOUT, VALUEOUT>
+     * @enam <N> The reducer key - the trigram.
+     * @param <KEYOUT> The reducer key - the trigram.
+     * @param <VALUEOUT> Text which indicates the number occurrences in each corpus group.
+     */
+    public static class ReducerClass extends ReducerSplitter<Text, Occurrences, Text, Text> {
         enum Counter {
             N
-        }
-
-        public void setup(Context context) {
-            r1 = 0;
-            r2 = 0;
-            text = "";
         }
 
         public void reduce(Text key, Iterable<Occurrences> values, Context context) throws IOException, InterruptedException {
             for (Occurrences value : values) {
                 context.getCounter(Counter.N).increment(value.getCount());
-                if (!key.toString().equals(text)) { // init
-                    r1 = 0;
-                    r2 = 0;
-                    text = key.toString();
-                }
-                if (value.getCorpus_part()) {
-                    r1 = r1 + value.getCount();
-                } else {
-                    r2 = r2 + value.getCount();
-                }
+                reduceLogic( key, value);
             }
             context.write(new Text(text), new Text(r1 + " " + r2));
-        }
-    }
-
-
-    public static class PartitionerClass extends Partitioner<Text, Occurrences> {
-        public int getPartition(Text key, Occurrences value, int partitionsNumber) {
-            return key.hashCode() % partitionsNumber;
         }
     }
 
