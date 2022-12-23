@@ -16,6 +16,7 @@ public class Aggregator implements WritableComparable<Aggregator> {
         this.corpus_group = corpus_group;
         this.currentR = currentR;
         this.otherR = otherR;
+
     }
 
     @Override public int compareTo(Aggregator o) {

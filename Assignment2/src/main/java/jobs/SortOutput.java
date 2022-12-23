@@ -16,6 +16,7 @@ import java.io.IOException;
 
 public class SortOutput {
 
+
     /***
      * * Map every line (w1 w2 w3 probability) into <NewProbability, w3>
      *     NewProbability update the probability of the pair w1w2 to be the probability of the trigram w1w2w3 in order

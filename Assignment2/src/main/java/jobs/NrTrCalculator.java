@@ -21,6 +21,7 @@ public class NrTrCalculator {
      * * Map each line into <R, Aggregator>. The Aggregator contains the data: corpus group, r1, r2.
      */
     public static class MapperClass extends Mapper<LongWritable, Text, LongWritable, Aggregator> {
+
         @Override
         public void map(LongWritable lineId, Text line, Context context) throws IOException, InterruptedException {
             String[] arr = line.toString().split("\\s+"); // "\\s+" is used to match multiple whitespace characters

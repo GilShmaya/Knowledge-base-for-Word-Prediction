@@ -12,6 +12,7 @@ public class Occurrences implements WritableComparable<Occurrences> {
 
     public Occurrences(){}
 
+
     public Occurrences(boolean corpus, long count){
         this.corpus_group = corpus;
         this.count = count;

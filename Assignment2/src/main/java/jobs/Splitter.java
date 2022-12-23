@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
  */
 public class Splitter {
 
+
     /***
      * * Map every line into <trigram, Occurrences>, the Occurrences include a division of the corpus into two parts and
      *        the occurrences of every trigram.

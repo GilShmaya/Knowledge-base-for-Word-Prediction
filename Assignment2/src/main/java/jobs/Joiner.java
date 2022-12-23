@@ -45,6 +45,7 @@ public class Joiner {
                 context.write(new Text(R + "_0"), new Text(String.format("%s %s %s", corpus_group, Nri, Tri)));
             } else {
                 System.out.println("Error: Joiner job, Mapper - invalid input");
+
             }
         }
     }

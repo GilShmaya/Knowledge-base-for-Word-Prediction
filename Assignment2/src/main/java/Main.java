@@ -10,6 +10,7 @@ import org.apache.log4j.BasicConfigurator;
 import software.amazon.awssdk.regions.Region;
 
 public class Main {
+
     public static void main(String[] args) {
         BasicConfigurator.configure();
         AmazonElasticMapReduce mapReduce = AmazonElasticMapReduceClient.builder().withRegion(Regions.US_EAST_1).build();

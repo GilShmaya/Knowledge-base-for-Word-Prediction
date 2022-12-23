@@ -41,6 +41,7 @@ public class DEprobability {
                 Text key = new Text(w1 + " " + w2 + " " + w3);
                 Text value = new Text(Nr + " " + Tr);
                 context.write(key, value);
+
             }
             else {
                 System.out.println("problem in the mapper of DEprobability - incorrect number of words"); // todo: check more occurrences of that message.

@@ -12,6 +12,7 @@ public class NewProbability implements WritableComparable<NewProbability> {
     private String W2;
     private Double probability;
 
+
     public NewProbability(){} // todo : why do we need an empty constructor ?
     public NewProbability(String w1,String w2, Double otherProbability){
         W1=w1;
