@@ -16,12 +16,12 @@ public class Main {
         AmazonElasticMapReduce mapReduce = AmazonElasticMapReduceClient.builder().withRegion(Regions.US_EAST_1).build();
 
         HadoopJarStepConfig hadoopJarStep = new HadoopJarStepConfig()
-                .withJar("s3n://yourbucket/yourfile.jar") // This should be a full map reduce application.
-                .withMainClass("some.pack.MainClass")
-                .withArgs("s3n://yourbucket/input/", "s3n://yourbucket/output/");
+                .withJar("s3n://yourbucket/yourfile.jar") // TODO: This should be a full map reduce application.
+                .withMainClass("MainLogic")
+                .withArgs("s3://datasets.elasticmapreduce/ngrams/books/20090715/eng-us-all/3gram/data", ""); // TODO:second arg
 
         StepConfig stepConfig = new StepConfig()
-                .withName("stepname")
+                .withName("stepname") // TODO: add the name of the stop job
                 .withHadoopJarStep(hadoopJarStep)
                 .withActionOnFailure("TERMINATE_JOB_FLOW");
 
@@ -29,7 +29,8 @@ public class Main {
                 .withInstanceCount(2)
                 .withMasterInstanceType(InstanceType.M4Large.toString())
                 .withSlaveInstanceType(InstanceType.M4Large.toString())
-                .withHadoopVersion("2.6.0").withEc2KeyName("yourkey")
+                .withHadoopVersion("2.6.0")
+                .withEc2KeyName("yourkey")
                 .withKeepJobFlowAliveWhenNoSteps(false)
                 .withPlacement(new PlacementType("us-east-1a"));
 
