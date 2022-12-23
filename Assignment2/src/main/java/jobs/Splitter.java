@@ -26,8 +26,7 @@ public class Splitter {
      */
     public static class MapperClass extends Mapper<LongWritable, Text, Text, Occurrences> {
         private static final Pattern ENGLISH = Pattern.compile("(?<trigram>[A-Z]+ [A-Z]+ [A-Z]+)\\t\\d{4}\\t" +
-                "(?<occurrences>\\d+).*"); // The Ngrams row contains: <n-gram year occurrences pages books>
-        // seperated by tap
+                "(?<occurrences>\\d+).*");
 
         @Override
         public void map(LongWritable lineId, Text line, Context context) throws IOException, InterruptedException {
