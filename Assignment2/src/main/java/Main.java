@@ -17,10 +17,10 @@ public class Main {
         HadoopJarStepConfig hadoopJarStep = new HadoopJarStepConfig()
                 .withJar("s3n://yourbucket/yourfile.jar") // TODO: This should be a full map reduce application.
                 .withMainClass("MainLogic")
-                .withArgs("s3://datasets.elasticmapreduce/ngrams/books/20090715/eng-us-all/3gram/data", ""); // TODO:second arg
+                .withArgs("s3://datasets.elasticmapreduce/ngrams/books/20090715/eng-us-all/3gram/data", "s3n://assignment2gy/Output");
 
         StepConfig stepConfig = new StepConfig()
-                .withName("stepname") // TODO: add the name of the stop job
+                .withName("stepname") // TODO
                 .withHadoopJarStep(hadoopJarStep)
                 .withActionOnFailure("TERMINATE_JOB_FLOW");
 

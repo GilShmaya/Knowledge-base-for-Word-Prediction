@@ -1,5 +1,4 @@
-package jobs;
-import com.amazonaws.services.dynamodbv2.xspec.S;
+package utils;
 import org.apache.hadoop.io.WritableComparable;
 
 import java.io.DataInput;

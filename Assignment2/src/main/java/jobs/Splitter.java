@@ -104,7 +104,7 @@ public class Splitter {
      * @enam <N> The reducer key - the trigram.
      */
     public static class ReducerClass extends ReducerSplitter<Text, Occurrences, Text, Text> {
-        enum Counter {
+        public enum Counter {
             N
         }
 

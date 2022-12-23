@@ -7,11 +7,9 @@ import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Partitioner;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.output.MultipleOutputs;
-import utils.Occurrences;
+import utils.NewProbability;
 
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /***
  * * The DEprobability job (Deleted Estimation probability) is responsible for the following:
@@ -105,6 +103,12 @@ public class DEprobability {
                 System.out.println("Problem in the reduce of trigramSpliter"); // todo: change the string and all occurrences
                 e.printStackTrace();
             }
+        }
+    }
+
+    public static class PartitionerClass extends Partitioner<NewProbability,Text> {
+        public int getPartition(NewProbability key, Text value, int numPartitions) {
+            return key.hashCode() % numPartitions;
         }
     }
 }

@@ -6,6 +6,7 @@ import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Partitioner;
 import org.apache.hadoop.mapreduce.Reducer;
 import org.apache.hadoop.mapreduce.lib.output.MultipleOutputs;
+import utils.NewProbability;
 
 import java.io.IOException;
 
@@ -34,6 +35,7 @@ public class SortOutput {
                 System.out.println("problem in the mapper of ArrangingTheResult - incorrect number of words"); // todo
             }
         }
+    }
 
         /***
          * * The Reducer gets the pairs <NewProbability, w3> from the Mapper and creates the final output - key: <w1w2w3> , value: <probability of trigram>.
@@ -60,10 +62,10 @@ public class SortOutput {
             }
         }
 
-        public static class PartitionerClass extends Partitioner<NewProbability,Text> {
-            public int getPartition(NewProbability key, Text value, int numPartitions) {
-                return key.hashCode() % numPartitions;
-            }
+    public static class PartitionerClass extends Partitioner<NewProbability,Text> {
+        public int getPartition(NewProbability key, Text value, int numPartitions) {
+            return key.hashCode() % numPartitions;
         }
     }
+
 }
