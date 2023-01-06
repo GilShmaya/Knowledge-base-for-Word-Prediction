@@ -12,7 +12,7 @@ Yael Elad 318917622
 
 
 
-###### Summary :
+##### Summary :
 In this Assignment we generated a knowledge-base for English word-prediction system, 
 
 based on Google 3-Gram English dataset, using Amazon Elastic Map-Reduce. 
@@ -21,8 +21,7 @@ The m-r system calculates the probability of each trigram (w1,w2,w3) found in a 
 
 
 
-#### Job #1 - Splitter 
-
+##### Job #1 - Splitter 
 
 Mapper :
 
@@ -68,7 +67,7 @@ Reducer :
 
 
 
-****** Job #2 - NrTrCalculate ******
+##### Job #2 - NrTrCalculate 
  
 
 Mapper :
@@ -91,7 +90,7 @@ Reducer :
 
 
 
-****** Job #3 - Joiner ******
+##### Job #3 - Joiner 
 
 
 Mapper :
@@ -126,7 +125,7 @@ Reducer :
 
 
 
-****** Job #4 - DEprobability ******
+##### Job #4 - DEprobability
 
 
 Mapper :
@@ -148,7 +147,7 @@ Reducer :
 
 
 
-****** Job #5 - SortOutput ******
+##### Job #5 - SortOutput 
 
 
 Mapper :
