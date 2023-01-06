@@ -7,6 +7,10 @@ Gil Shmaya 209327303
 Yael Elad 318917622
 
 
+##### Summary :
+In this Assignment we generated a knowledge-base for English word-prediction system, based on Google 3-Gram English dataset, using Amazon Elastic Map-Reduce. 
+The system calculates the probability of each trigram (w1,w2,w3) founded in the given corpus, and generates the output knowledge base with the resulted probabilities.
+
 
 ###### How to run the project :
 
@@ -22,12 +26,7 @@ Yael Elad 318917622
 
 4. run ?
 
-
-##### Summary :
-In this Assignment we generated a knowledge-base for English word-prediction system, based on Google 3-Gram English dataset, using Amazon Elastic Map-Reduce. 
-The system calculates the probability of each trigram (w1,w2,w3) founded in the given corpus, and generates the output knowledge base with the resulted probabilities.
-
-
+#### Map Reduce Jobs :
 
 ##### Job 1 - Splitter 
 
