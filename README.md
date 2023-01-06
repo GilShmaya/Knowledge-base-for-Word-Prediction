@@ -10,6 +10,17 @@ Yael Elad 318917622
 
 ###### How to run the project :
 
+1. update the credential - on the local dir /.aws/credentials
+
+2. create the following buckets :
+
+?
+
+3. Upload eng-stopwords.txt to  ?
+
+3. upload Assignment2.jar to assignment2 bucket
+
+4. run ?
 
 
 ##### Summary :
