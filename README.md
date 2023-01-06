@@ -141,7 +141,7 @@ books - The number of books this 3-gram appeared in during this year
 ###### Reducer :
 
 - Gets the pairs <NewProbability, w3> from the Mapper and creates the final output -
-* key:<w1w2w3> , value:<probability of trigram>.
+* key:< w1w2w3 > , value:< probability of trigram >.
 
 * Arranging the output (The 3-grams with their probability) according to the requested order: (1) by w1w2, ascending; (2) by the probability for w1w2w3, descending.
 
