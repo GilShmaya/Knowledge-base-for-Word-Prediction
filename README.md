@@ -8,33 +8,11 @@ Yael Elad 318917622
 
 
 
-How to run the project :
-
-1. update the credential - on the local dir /.aws/credentials
-
-2. create the following buckets :
-
-* ????
-
-3. Upload eng-stopwords.txt to **** ?
-
-3. upload Assignment2.jar to assignment2 bucket
-
-4. run the jar - java -jar DSP2.jar
+### How to run the project :
 
 
 
-How to run the project:
-1. Open the following buckets: collocation-extraction-jars, collocation-extraction-logs,
-collocation-extraction-output, collocation-extraction-stopwords
-2. Upload heb-stopwords.txt and eng-stopwords.txt to collocation-extraction-stopwords
-3. Upload Round1, Round2, and Round3 jars to collocation-extraction-jars
-4. Run CollocationExtraction with opt args: heb/eng
-
-
-
-
-Summary :
+### Summary :
 
 
 In this Assignment we generated a knowledge-base for English word-prediction system, 
@@ -45,7 +23,7 @@ The m-r system calculates the probability of each trigram (w1,w2,w3) found in a 
 
 
 
-****** Job #1 - Splitter ******
+#### Job #1 - Splitter 
 
 
 Mapper :
