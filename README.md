@@ -13,15 +13,12 @@ Yael Elad 318917622
 
 
 ##### Summary :
-In this Assignment we generated a knowledge-base for English word-prediction system, 
-
-based on Google 3-Gram English dataset, using Amazon Elastic Map-Reduce. 
-
-The m-r system calculates the probability of each trigram (w1,w2,w3) found in a given corpus & generates the output knowledge base with the resulted probabilities.
+In this Assignment we generated a knowledge-base for English word-prediction system, based on Google 3-Gram English dataset, using Amazon Elastic Map-Reduce. 
+The system calculates the probability of each trigram (w1,w2,w3) founded in the given corpus, and generates the output knowledge base with the resulted probabilities.
 
 
 
-##### Job #1 - Splitter 
+##### Job 1 - Splitter 
 
 ###### Mapper :
 
@@ -58,7 +55,7 @@ books - The number of books this 3-gram appeared in during this year
 - Generates one output for each 3-gram : <3-gram, r1, r2>
 
 
-##### Job #2 - NrTrCalculate 
+##### Job 2 - NrTrCalculate 
  
 ###### Mapper :
 
@@ -75,7 +72,7 @@ books - The number of books this 3-gram appeared in during this year
 - Gets as input the files from the mappers ???????
 
 
-##### Job #3 - Joiner 
+##### Job 3 - Joiner 
 
 ###### Mapper :
 
@@ -104,7 +101,7 @@ books - The number of books this 3-gram appeared in during this year
 * <trigram, Nr2, Tr2>
 
 
-##### Job #4 - DEprobability
+##### Job 4 - DEprobability
 
 ###### Mapper :
 
@@ -121,7 +118,7 @@ books - The number of books this 3-gram appeared in during this year
 - Calculate the probability for the given 3-gram according to the Deleted Estimation method.
 
 
-##### Job #5 - SortOutput 
+##### Job 5 - SortOutput 
 
 ###### Mapper :
 
