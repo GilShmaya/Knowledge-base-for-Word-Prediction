@@ -1,6 +1,6 @@
 # Knowledge-base-for-Word-Prediction
 
-Submitters :
+###### Submitters :
 
 Gil Shmaya 209327303
 
@@ -8,13 +8,11 @@ Yael Elad 318917622
 
 
 
-### How to run the project :
+###### How to run the project :
 
 
 
-### Summary :
-
-
+###### Summary :
 In this Assignment we generated a knowledge-base for English word-prediction system, 
 
 based on Google 3-Gram English dataset, using Amazon Elastic Map-Reduce. 
