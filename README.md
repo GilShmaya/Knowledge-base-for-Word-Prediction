@@ -18,13 +18,13 @@ The system calculates the probability of each trigram (w1,w2,w3) founded in the 
 
 2. create the following buckets :
 
-?
+*** 
 
-3. Upload eng-stopwords.txt to  ?
+3. Upload eng-stopwords.txt to  ***
 
 3. upload Assignment2.jar to assignment2 bucket
 
-4. run ?
+4. run ***
 
 #### Map Reduce Jobs :
 
@@ -79,7 +79,7 @@ books - The number of books this 3-gram appeared in during this year
 
 ###### Reducer :
 
-- Gets as input the files from the mappers ???????
+- Gets as input the files from the mappersand combines the values of Nr1, Nr2, Tr1, Tr2 for each R ( what is R ??? )
 
 
 ##### Job 3 - Joiner 
