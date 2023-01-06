@@ -23,7 +23,7 @@ The m-r system calculates the probability of each trigram (w1,w2,w3) found in a 
 
 ##### Job #1 - Splitter 
 
-Mapper :
+####### Mapper :
 
 - Gets as input lines from the English 3-Gram dataset of google 
 
@@ -37,9 +37,7 @@ books - The number of books this 3-gram appeared in during this year
 
 - Map every line into <3-gram, Occurrences>, the Occurrences include a division of the corpus into two parts and the occurrences of every 3-gram.
 
-
-
-Combiner : 
+####### Combiner : 
 
 - Performing a local aggregation on the mapper's output : Combine the 3-grams Occurrences the mapper created in each server
 
@@ -49,12 +47,9 @@ Combiner :
 
 * <3-gram , new Occurrences(false, r2)> 
 
-
 *** By using the Combiner we reduce the amount of data that needs to be transmitted over the network and processed by the reducer .
 
-
-
-Reducer :
+####### Reducer :
 
 - Calculating the parameter N (indicates the total number of 3-grams in the corpus)
 
@@ -63,14 +58,9 @@ Reducer :
 - Generates one output for each 3-gram : <3-gram, r1, r2>
 
 
-
-
-
-
 ##### Job #2 - NrTrCalculate 
  
-
-Mapper :
+####### Mapper :
 
 - Gets as input the files from job1 (<3-gram, r1 r2>)
 
@@ -80,20 +70,14 @@ Mapper :
 
 <r2, Aggregator> : Aggregator contains the data: corpus group 2, parameter R, and r1.
 
-
-Reducer :
+####### Reducer :
 
 - Gets as input the files from the mappers ???????
 
 
-
-
-
-
 ##### Job #3 - Joiner 
 
-
-Mapper :
+#######Mapper :
 
 - Gets the output files of job1 and job2 as input: 
 
@@ -111,8 +95,7 @@ Mapper :
 
 - Generates the output <R, (corpus, Nr, Tr)>
 
-
-Reducer :
+####### Reducer :
 
 - Generates two output files for each 3-gram by joining the data arrived from job1 and job2 :
 
@@ -121,15 +104,9 @@ Reducer :
 * <trigram, Nr2, Tr2>
 
 
-
-
-
-
 ##### Job #4 - DEprobability
 
-
-Mapper :
-
+####### Mapper :
 
 - Gets as input the output files from job3 (<trigram, Nri, Tri> (i=1,2)) and the parameter N from job1.
 
@@ -137,20 +114,16 @@ Mapper :
 
 - Generates an output for each 3-gram with its probability - <3-gram, Probability>
 
-
-Reducer :
+####### Reducer :
 
 - Gets a 3-gram as Key and the trigram's Nr1, Tr1, Nr2, Tr2 values as Value.
 
 - Calculate the probability for the given 3-gram according to the Deleted Estimation method.
 
 
-
-
 ##### Job #5 - SortOutput 
 
-
-Mapper :
+####### Mapper :
 
 - Gets as input the output files from job4, which represents the final probability for each 3-gram.
 
@@ -158,8 +131,7 @@ Mapper :
 
 * 'NewProbability' update the probability of the pair w1w2 to be a temporary probability of the 3-gram w1w2w3, in order to know which w3 should appear first with w1w2.
 
-
-Reducer :
+####### Reducer :
 
 - Gets the pairs <NewProbability, w3> from the Mapper and creates the final output - key: <w1w2w3> , value: <probability of trigram>.
 
